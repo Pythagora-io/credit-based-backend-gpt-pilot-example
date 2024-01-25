@@ -3,3 +3,4 @@ node_modules/
 receipts/
 .gpt-pilot/
 package-lock.json
+.idea
