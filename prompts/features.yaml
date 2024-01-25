@@ -1,0 +1,35 @@
+feature_1: |
+    The sidebar buttons are not highlighted when I click on them. Make it so that, depending on the page the user is on, that button in the sidebar is highlighted.
+
+feature_2: |
+    I want to add a special user type “admin” that will not have the options as other users (like “dashboard”, “billing”, etc.) but it will be able to manage other users. When a user that has this type =logs in, they should see a list of registered users and for each user they should be able to make them an Admin, change their password or delete them. When a delete button is clicked, there should be a =confirmation dialog to make sure the user isn’t deleted accidentally.
+
+feature_3: |
+    I want to add reset password functionality. Add a “Forgot password?” button on the register page that triggers the password reset. User should get an email with a link where they can change their =password and the link should be valid for only 10 minutes.
+
+feature_4: |
+    Invoice history on the /billing page doesn’t work. When I make a purchase, no invoices are shown there. Please check the code for that feature and ensure it works. Maybe we need to do something =with webhooks so if the code works, please tell me what should I do to make webhooks work.
+
+feature_5: |
+    I want to create another page for the admin user that contains controls over a single user. Currently, there is a page /api/admin/users that contains all users and for each user, I can change =password and a couple of other changes. Now, I want this page to have only one button for each user that says “Edit User”. When I click on this button, I want another page to open that enables the admin to =edit this user. Admin should be able to do the following actions:\n- change user password\n- change user email\n- make the user an admin\n- delete the user\n- Add/edit/update the address information for =the user (street, city, etc)\n- Show the credit balance and credit stats for the user (like they have on their user dashboard)\n- \"Add\" or \"Remove\" credits
+
+feature_6: |
+    I want to enable the admin users to manage invoices for each user individually. Update the page `/edit-user` and enable Invoices to be shown on this page. Then, for each invoice, enable the admin to refund it via the Stripe API. Finally, I want to be able to create a custom invoice and charge the user for it - for that, create new button “Create Invoice” that will open up a dialog in which I will enter the amount in USD that the user will be charged and a number of credits that they will get for that amount.
+
+feature_7: |
+    I want to refactor the current system for sending email to sending emails with Sendgrid as transactional emails. Please replace the current mail sending implementation with the one that will utilize Sendgrid API to send emails.
+
+feature_8: |
+    - [ ] I want to enable each user to have their own custom pricing tiers. Everyone should have the current pricing tiers by default but if a special customer signs up, I want to be able to add a =custom pricing for them in the admin panel. In the admin panel, add a new setting for a user, called “Custom Pricing” that will enable me to add a custom price per credit that will apply only for that =specific customer from that point onwards. If that customer is being billed by default and I add a custom pricing, they should be billed by that pricing from that point onwards. Also, I want to be able to =change the default pricing tiers from the admin panel. For that, add a separate page on which there will be default pricing visible and I should be able to change any of the tiers.
+
+feature_9: |
+    - [ ] I want to add a couple of email notifications for users. First one is when the user’s credits go below 1000. The second is when an auto-replenish happens. Finally, the third one is when a =payment is made. Then, send them an update that X number of credits has been added to their account.
+
+feature_10: |
+    I want to be enable admin users to view user’s dashboard just like the user. Please implement a button on the admin panel user page that will open the user dashboard as an admin.
+
+feature_11: |
+    I want to add 2 things (create 2 tasks from this):\nFirst, I want the admin user to be able to change the default pricing tiers. Create a special page for the admin user on which they should be =able to change the default pricing tier values.\nThen, I want the admin to be able to verify the user email from the admin panel.
+
+feature_12: |
+    I want to add Paypal as a billing option. Implement Paypal with the same logic as the current Stripe implementation.

@@ -1,0 +1,23 @@
+I have an app that enables people to scrape the web and now, I want to create an account management system for   my app. Here are the parts of the system I need you to create:
+1. Authentication. I need the users to be able to register   and log in. Make sure that they can reset their password, log out and when a user logs in, that they are logged in for   1 year (use JWT for 
+session management and make sure that the user stays logged in after the server restarts).
+2. Credit-based   billing with Stripe. The user should be able to add a credit card that can be charged. The billing system will incorporate   three pricing tiers: a free tier for 0-5000 credits, a Small 
+Business tier priced at $0.0018 per credit for the following   500,000 credits, and an Enterprise tier at $0.0009 per credit for subsequent usage. Billing will be prepaid so that the   user will purchase a 
+certain number of credits that will be used up until there are no more credits in the user account   - then, the user needs to top up their credits to continue using our service.
+3. Once the user logs in, they should see   their account management with the following pages:
+    1. “Dashboard” page that shows their API key and the   credits that they used up in the last 1 day, last 7 days and last 30 days. Create an endpoint that will enable another   microservice (the one 
+that scrapes the web) to update the used credits for a user. Also, on 
+    2. “Billing”   page that shows the past invoices and a form that enables user to set up auto-replenish feature. If this feature is turned   on, the user will automatically be billed once they go below 
+a certain number of credits. This form should have one toggle   that enables or disables this feature and 2 input fields. One input field shows the number of credits to automatically   purchase (default to 
+5000) and the second input field shows a threshold of available credits under which the automatic   top up will be triggered. For example, if the threshold is 30000 and the number of credits to 
+automatically purchase is   5000, user will be automatically billed for 5000 credits once their account has less than 30000 credits available. Also,   on this page, show a list of all purchases that the 
+user has made and next to each purchase, there should be a button   to download a receipt for that purchase.
+    3. “Contact” page that shows only an email where users can send   their inquiries.
+    4. “API Info” page that only shows the API key of the user.
+    5. “Buy credits”   page that enables users to purchase more credits. This page should have 4 buttons with some common number of credits that   users purchase (5000, 25000, 50000, and 100000 credits) 
+and an input field where users can set a custom number of credits   to purchase. Below, there should be a field that shows the total price for the selected credits and a button “Confirm”   that will 
+trigger a purchase. When the button is clicked, the user is sent to a Stripe page where they can enter their   credit card details and pay.
+4. Frontend styling - use bootstrap for the styling and make sure that there is a sidebar   with links to each of the pages listed and a header that shows the user that is logged in and a button to log 
+out.
+
+  For frontend, use EJS templating and do not use React or any similar framework.
