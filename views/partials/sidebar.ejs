@@ -1,0 +1,40 @@
+<div class="col-md-3 d-flex flex-column flex-shrink-0 p-3 bg-light" style="height: 100vh;">
+  <ul class="nav nav-pills flex-column mb-auto">
+    <%
+      // Ensure there's a variable named currentPage, default to an empty string if not set.
+      currentPage = typeof currentPage !== 'undefined' ? currentPage : '';
+    %>
+    <li class="nav-item">
+      <a href="/dashboard" class="nav-link <%= currentPage === 'dashboard' ? 'active' : '' %>" aria-current="page">
+        Dashboard
+      </a>
+    </li>
+    <li>
+      <a href="/billing" class="nav-link <%= currentPage === 'billing' ? 'active' : '' %>">
+        Billing
+      </a>
+    </li>
+    <li>
+      <a href="/contact" class="nav-link <%= currentPage === 'contact' ? 'active' : '' %>">
+        Contact
+      </a>
+    </li>
+    <li>
+      <a href="/api-info" class="nav-link <%= currentPage === 'api-info' ? 'active' : '' %>">
+        API Info
+      </a>
+    </li>
+    <li>
+      <a href="/buy-credits" class="nav-link <%= currentPage === 'buy-credits' ? 'active' : '' %>">
+        Buy Credits
+      </a>
+    </li>
+    <% if (typeof user !== 'undefined' && user && user.isAdmin) { %>
+      <li class="nav-item">
+        <a href="/api/admin/admin-dashboard" class="nav-link <%= currentPage === 'admin-dashboard' ? 'active' : '' %>">
+          Admin Dashboard
+        </a>
+      </li>
+    <% } %>
+  </ul>
+</div>

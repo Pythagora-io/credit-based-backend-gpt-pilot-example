@@ -1,0 +1,13 @@
+<%- include('../partials/header', {title: 'Admin Dashboard'}) %>
+<div class="container mt-3">
+  <h1>Admin Dashboard</h1>
+  <div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-4 mb-3">
+      <a href="/api/admin/users" class="btn btn-primary btn-block">Manage Users</a>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-4 mb-3">
+      <a href="/api/admin/pricing-tiers" class="btn btn-primary btn-block">Manage Pricing Tiers</a>
+    </div>
+  </div>
+</div>
+<%- include('../partials/footer') %>

@@ -1,0 +1,10 @@
+<%- include('partials/header', {title: 'Contact'}) %>
+<%- include('partials/impersonationNotice', { impersonatingUser: user }) %>
+<div class="row">
+  <%- include('partials/sidebar') %>
+  <div class="col-md-9">
+    <h1>Contact</h1>
+    <p>If you have any inquiries, please send an email to: <a href="mailto:<%= process.env.CONTACT_EMAIL %>"><%= process.env.CONTACT_EMAIL %></a></p>
+  </div>
+</div>
+<%- include('partials/footer') %>

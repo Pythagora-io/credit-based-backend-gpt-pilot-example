@@ -1,0 +1,24 @@
+<%- include('partials/header', { title: 'Buy Credits' }) %>
+<%- include('partials/impersonationNotice', { impersonatingUser: user }) %>
+<div class="row">
+  <%- include('partials/sidebar') %>
+  <div class="col-md-9 my-4">
+    <h1 class="mb-4">Buy Credits</h1>
+    <div class="d-flex flex-wrap gap-2">
+      <% [5000, 25000, 50000, 100000].forEach(amount => { %>
+        <button class="btn btn-primary purchase-credits-btn" data-credits="<%= amount %>">
+          Buy <%= amount.toLocaleString() %> Credits
+        </button>
+      <% }) %>
+    </div>
+    <div class="my-4">
+      <label for="customCredits" class="form-label">Custom Number of Credits:</label>
+      <input type="number" class="form-control" id="customCredits" placeholder="Enter custom amount">
+      <p class="mt-2">Total Price: $<span id="totalPrice">0.00</span></p>
+      <button id="payWithStripe" class="btn btn-success mt-2">Pay with Stripe</button>
+      <button id="payWithPaypal" class="btn btn-success mt-2">Pay with PayPal</button>
+    </div>
+  </div>
+</div>
+<%- include('partials/footer') %>
+<script src="/js/buyCredits.js"></script>

@@ -1,0 +1,138 @@
+<%- include('../partials/header', {title: 'Edit User'}) %>
+<div class="row">
+  <%- include('../partials/sidebar') %>
+  <div class="col-md-9">
+    <h1>Edit User - <%= user.username %></h1>
+    <div class="alert" style="display: none;" role="alert" id="alertBox"></div>
+    <form action="/api/admin/update-user/<%= user._id %>" method="post" data-user-id="<%= user._id %>">
+      <div class="mb-3">
+        <label for="email" class="form-label">Email address</label>
+        <input type="email" class="form-control" id="email" name="email" value="<%= user.email %>" required>
+      </div>
+      <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input type="text" class="form-control" id="username" name="username" value="<%= user.username %>" required>
+      </div>
+      <div class="mb-3">
+        <label for="street" class="form-label">Street</label>
+        <input type="text" class="form-control" id="street" name="street" value="<%= user.street %>" required>
+      </div>
+      <div class="mb-3">
+        <label for="city" class="form-label">City</label>
+        <input type="text" class="form-control" id="city" name="city" value="<%= user.city %>" required>
+      </div>
+      <div class="mb-3">
+        <label for="zipcode" class="form-label">Zip Code</label>
+        <input type="text" class="form-control" id="zipcode" name="zipcode" value="<%= user.zipcode %>" required>
+      </div>
+      <div class="mb-3">
+        <label for="country" class="form-label">Country</label>
+        <input type="text" class="form-control" id="country" name="country" value="<%= user.country %>" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Save Changes</button>
+    </form>
+    <h2>Adjust Credits</h2>
+    <form action="/api/admin/adjust-credits/<%= user._id %>" method="post" id="adjustCreditsForm">
+      <div class="mb-3">
+        <label for="creditAmount" class="form-label">Credit Amount</label>
+        <input type="number" class="form-control" id="creditAmount" name="creditAmount" required>
+      </div>
+      <button type="submit" class="btn btn-warning">Adjust Credits</button>
+    </form>
+    <h2>Custom Pricing Tiers</h2>
+    <div>
+      <form id="customPricingTiersForm" data-user-id="<%= user._id %>">
+        <div class="mb-3">
+          <label for="tierName" class="form-label">Tier Name</label>
+          <input type="text" class="form-control" id="tierName" name="tierName" placeholder="e.g., Custom Tier 1" required>
+        </div>
+        <div class="mb-3">
+          <label for="startFrom" class="form-label">Start From</label>
+          <input type="number" class="form-control" id="startFrom" name="startFrom" placeholder="Enter starting credit amount" required>
+        </div>
+        <div class="mb-3">
+          <label for="upTo" class="form-label">Up To</label>
+          <input type="number" class="form-control" id="upTo" name="upTo" placeholder="Enter ending credit amount" required>
+        </div>
+        <div class="mb-3">
+          <label for="pricePerCredit" class="form-label">Price Per Credit ($)</label>
+          <input type="number" step="0.0001" class="form-control" id="pricePerCredit" name="pricePerCredit" placeholder="Enter price per credit" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Add/Update Tier</button>
+      </form>
+    </div>
+    <h2>Credit Stats</h2>
+    <div>
+      <p>Credit Balance: <span id="currentCredits"><%= user.credits %></span></p>
+      <p>Credits Used Today: <%= creditUtilization.lastDay %></p>
+      <p>Credits Used Last 7 Days: <%= creditUtilization.last7Days %></p>
+      <p>Credits Used Last 30 Days: <%= creditUtilization.last30Days %></p>
+    </div>
+    <h2>User Invoices</h2>
+    <div>
+      <% if (invoices && invoices.length > 0) { %>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Credits Purchased</th>
+              <th scope="col">Amount Paid</th>
+              <th scope="col">Date</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% invoices.forEach((invoice, index) => { %>
+            <tr>
+              <th scope="row"><%= index + 1 %></th>
+              <td><%= invoice.creditsPurchased %></td>
+              <td>$<%= (invoice.amountPaid / 100).toFixed(2) %></td>
+              <td><%= new Date(invoice.createdAt).toLocaleDateString() %></td>
+              <td>
+                <% if (!invoice.refunded) { %>
+                  <button class="btn btn-danger refund-invoice-btn" data-invoice-id="<%= invoice._id %>">Refund</button>
+                <% } else { %>
+                  <button class="btn btn-secondary" disabled>Refunded</button>
+                <% } %>
+              </td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      <% } else { %>
+        <p>No invoices available.</p>
+      <% } %>
+    </div>
+    <h2>Create Custom Invoice</h2>
+    <form id="createCustomInvoiceForm" data-user-id="<%= user._id %>">
+      <div class="mb-3">
+        <label for="amount" class="form-label">Amount (USD)</label>
+        <input type="number" step="0.01" min="0" class="form-control" id="amount" name="amount" required>
+      </div>
+      <div class="mb-3">
+        <label for="credits" class="form-label">Credits to Allocate</label>
+        <input type="number" min="0" class="form-control" id="credits" name="credits" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Create Invoice</button>
+    </form>
+  </div>
+</div>
+<div class="modal fade" id="responseModal" tabindex="-1" aria-labelledby="responseModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="responseModalLabel">Update User</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="responseModalBody">
+        <!-- Response message will be injected here -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="/js/adminEditUser.js"></script>
+<script src="/js/adminCustomPricing.js"></script>
+<%- include('../partials/footer') %>

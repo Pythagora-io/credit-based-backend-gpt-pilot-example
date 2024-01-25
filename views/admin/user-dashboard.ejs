@@ -1,0 +1,10 @@
+<%- include('../partials/header', {title: 'User Dashboard'}) %>
+<div class="row" data-impersonated-user-id="<%= userDashboardData.user._id %>">
+  <%- include('../partials/admin-sidebar', {userDashboardData: userDashboardData, currentPage: currentPage}) %>
+  <div class="col-md-9">
+    <%- include('../partials/impersonation-banner', {impersonatedUser: userDashboardData.user}) %>
+    <h1>User Dashboard - <%= userDashboardData.user.username %></h1>
+    <%- include('../dashboard', {user: userDashboardData.user.toObject(), creditUtilization: userDashboardData.creditUtilization, currentPage: 'dashboard'}) %>
+  </div>
+</div>
+<%- include('../partials/footer') %>

@@ -1,0 +1,10 @@
+<%- include('../partials/header', {title: 'Error'}) %>
+<div class="row">
+  <%- include('../partials/sidebar') %>
+  <div class="col-md-9">
+    <h1>Error</h1>
+    <p><%= message %></p>
+    <a href="/api/admin/pricing-tiers" class="btn btn-primary">Back to Pricing Tiers</a>
+  </div>
+</div>
+<%- include('../partials/footer') %>

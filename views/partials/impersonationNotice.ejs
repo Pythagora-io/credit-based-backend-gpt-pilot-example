@@ -1,0 +1,6 @@
+<% if (typeof impersonatingUser !== 'undefined' && impersonatingUser) { %>
+  <div class="alert alert-warning" role="alert">
+    <span>You are viewing this page as <strong><%= impersonatingUser.username %></strong>.</span>
+    <a href="/api/admin/admin-dashboard" class="btn btn-secondary btn-sm ml-2">Back to Admin Panel</a>
+  </div>
+<% } %>

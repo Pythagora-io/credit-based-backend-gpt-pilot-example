@@ -1,0 +1,18 @@
+<%- include('partials/header', { title: 'Dashboard' }) %>
+<%- include('partials/impersonationNotice', { impersonatingUser: user }) %>
+  <%- include('partials/content-wrapper-start') %>
+    <div class="row">
+      <%- include('partials/sidebar') %>
+      <div class="col-md-9">
+        <h1>Dashboard</h1>
+        <p>Your API Key: <code><%= user.apiKey %></code></p>
+        <div>
+          <h3>Credit Utilization</h3>
+          <p>Last Day: <%= creditUtilization.lastDay %></p>
+          <p>Last 7 Days: <%= creditUtilization.last7Days %></p>
+          <p>Last 30 Days: <%= creditUtilization.last30Days %></p>
+        </div>
+      </div>
+    </div>
+  <%- include('partials/content-wrapper-end') %>
+<%- include('partials/footer') %>

@@ -1,0 +1,10 @@
+<%- include('partials/header', {title: 'API Info'}) %>
+<%- include('partials/impersonationNotice', { impersonatingUser: user }) %>
+<div class="row">
+  <%- include('partials/sidebar') %>
+  <div class="col-md-9">
+    <h1>API Info</h1>
+    <p>Your API Key: <code><%= user.apiKey %></code></p>
+  </div>
+</div>
+<%- include('partials/footer') %>

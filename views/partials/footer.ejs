@@ -1,0 +1,14 @@
+<!-- (Previous code remains unchanged) -->
+<script type="text/javascript">
+  // Add the Stripe public key to the global window object for use in the frontend
+  window.stripePublicKey = '<%= process.env.STRIPE_PUBLISHABLE_KEY %>';
+</script>
+<% if (typeof userDashboardData !== 'undefined') { %>
+  <script src="/js/handleImpersonation.js"></script>
+<% } %>
+<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.3/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+<script src="/js/handleImpersonation.js"></script>
+<!-- <script src="/js/sidebar.js"></script> -->
+<!-- (Rest of your previous page footer contents here) -->

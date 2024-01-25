@@ -1,0 +1,56 @@
+<%- include('partials/header', { title: 'Billing' }) %>
+<%- include('partials/impersonationNotice', { impersonatingUser: user }) %>
+<div class="row">
+  <%- include('partials/sidebar') %>
+  <div class="col-md-9">
+    <h1>Billing</h1>
+    <div>
+      <h3>Auto-Replenish Settings</h3>
+      <form id="autoReplenishForm" action="/api/billing/update-auto-replenish" method="post">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" name="isEnabled" id="autoReplenish" <% if (user.autoReplenishEnabled) { %>checked<% } %>>
+          <label class="form-check-label" for="autoReplenish">
+            Enable Auto-Replenish
+          </label>
+        </div>
+        <div class="mb-3">
+          <label for="threshold" class="form-label">Threshold Credits</label>
+          <input type="number" class="form-control" id="threshold" name="threshold" value="<%= user.autoReplenishThreshold %>" required>
+        </div>
+        <div class="mb-3">
+          <label for="creditsToPurchase" class="form-label">Credits to Purchase</label>
+          <input type="number" class="form-control" id="creditsToPurchase" name="creditsToPurchase" value="<%= user.autoReplenishAmount %>" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Save Settings</button>
+      </form>
+      <hr>
+      <h3>Invoice History</h3>
+      <% if(invoices.length > 0) { %>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Date</th>
+              <th scope="col">Credits Purchased</th>
+              <th scope="col">Amount Paid</th>
+              <th scope="col">Receipt</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% invoices.forEach(invoice => { %>
+              <tr>
+                <td><%= invoice.createdAt.toISOString().split('T')[0] %></td>
+                <td><%= invoice.creditsPurchased.toLocaleString() %></td>
+                <td>$<%= (invoice.amountPaid / 100).toFixed(2) %></td>
+                <td><a href="/api/billing/download-receipt/<%= invoice._id %>" class="btn btn-info">Download</a></td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      <% } else { %>
+        <p>No invoices available.</p>
+      <% } %>
+    </div>
+  </div>
+</div>
+<script src="/js/billing.js"></script>
+<%- include('partials/footer') %>

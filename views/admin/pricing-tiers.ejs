@@ -1,0 +1,24 @@
+<%- include('../partials/header', {title: 'Manage Pricing Tiers'}) %>
+<div class="container mt-3">
+  <h1>Manage Pricing Tiers</h1>
+
+  <form id="pricingTiersForm" action="/api/admin/pricing-tiers" method="post">
+    <% tiers.forEach(function(tier, index) { %>
+      <div class="mb-3 row" data-tier-index="<%= index %>">
+        <label for="tierName<%= index %>" class="form-label">Tier Name</label>
+        <input type="text" class="form-control" id="tierName<%= index %>" name="tierName<%= index %>" value="<%= tier.tierName %>" required>
+
+        <label for="startFrom<%= index %>" class="form-label">Start From</label>
+        <input type="number" class="form-control" id="startFrom<%= index %>" name="startFrom<%= index %>" value="<%= tier.startFrom %>" required>
+
+        <label for="upTo<%= index %>" class="form-label">Up To</label>
+        <input type="number" class="form-control" id="upTo<%= index %>" name="upTo<%= index %>" value="<%= tier.upTo %>" required>
+
+        <label for="pricePerCredit<%= index %>" class="form-label">Price Per Credit</label>
+        <input type="text" class="form-control" id="pricePerCredit<%= index %>" name="pricePerCredit<%= index %>" value="<%= tier.pricePerCredit.toFixed(4) %>" required pattern="^\d+(\.\d{1,4})?$" title="Enter a number with up to 4 decimal places. Use a period as decimal separator.">
+      </div>
+    <% }); %>
+    <button type="submit" class="btn btn-primary">Update Pricing Tiers</button>
+  </form>
+</div>
+<%- include('../partials/footer') %>

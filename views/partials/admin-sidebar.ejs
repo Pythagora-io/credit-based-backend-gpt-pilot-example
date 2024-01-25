@@ -1,0 +1,14 @@
+<div class="col-md-3 d-flex flex-column flex-shrink-0 p-3 bg-light" style="height: 100vh;">
+  <ul class="nav nav-pills flex-column mb-auto">
+    <%
+      // Dynamically appending the userId parameter to all links if it is present.
+      const userIdParam = userDashboardData && userDashboardData.user ? `?uid=${userDashboardData.user._id}` : '';
+    %>
+    <li class="nav-item">
+      <a href="/dashboard<%= userIdParam %>" class="nav-link <%= currentPage === 'dashboard' ? 'active' : '' %>" aria-current="page">
+        Dashboard
+      </a>
+    </li>
+    <!-- Repeat for all other links, appending userIdParam accordingly -->
+  </ul>
+</div>

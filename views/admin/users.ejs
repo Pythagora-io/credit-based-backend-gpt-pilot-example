@@ -1,0 +1,39 @@
+<%- include('../partials/header', {title: 'Admin Users'}) %>
+<div class="row">
+  <%- include('../partials/sidebar') %>
+  <div class="col-md-9">
+    <h1>Admin - Users</h1>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Username</th>
+          <th scope="col">Email</th>
+          <th scope="col">Admin</th>
+          <th scope="col">Email Verified</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% users.forEach((user, index) => { %>
+        <tr id="user-<%= user._id %>">
+          <th scope="row"><%= index + 1 %></th>
+          <td><%= user.username %></td>
+          <td><%= user.email %></td>
+          <td><%= user.isAdmin ? 'Yes' : 'No' %></td>
+          <td><%= user.emailVerified ? 'Yes' : 'No' %></td>
+          <td>
+            <a href="/api/admin/edit-user/<%= user._id %>" class="btn btn-primary">Edit</a>
+            <% if (!user.emailVerified) { %>
+              <button onclick="verifyEmail('<%= user._id %>')" class="btn btn-success">Verify Email</button>
+            <% } %>
+            <a href="/api/admin/impersonate/<%= user._id %>" class="btn btn-secondary">View as User</a>
+          </td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+</div>
+<script src="/js/adminUsers.js"></script>
+<%- include('../partials/footer') %>
